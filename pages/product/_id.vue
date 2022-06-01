@@ -14,7 +14,7 @@
             <br>
             <div class="row">
                 <div class="col-md-12">
-                    <ProductDesc :product="product  " />
+                    <ProductDesc :product="product" />
                 </div>
             </div>
         </div>
@@ -26,13 +26,16 @@ import axios from 'axios'
 export default {
     data() {
         return {
-            product:{}
+            product: {}
         }
     },
-    async fetch(){
+    head: {
+        title: "Product"
+    },
+    async fetch() {
         await axios.get(`https://bymmc.com.ua/api/product/${this.$route.params.id}`)
             .then((result) => {
-                this.product=result.data[0]
+                this.product = result.data[0]
             }).catch((err) => {
                 console.log(err);
             });

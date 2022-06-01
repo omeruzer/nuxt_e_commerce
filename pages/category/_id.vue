@@ -32,6 +32,9 @@ import axios from 'axios'
           category:{}
         }
       },
+      head:{
+        title:"Category"
+      },
       async fetch(){
         await axios.get(`https://bymmc.com.ua/api/category/${this.$route.params.id}`)
           .then((result) => {

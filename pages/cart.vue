@@ -31,6 +31,9 @@ export default {
             title: 'Cart'
         }
     },
+      head:{
+    title:'Cart'
+  },
 }
 </script>
 

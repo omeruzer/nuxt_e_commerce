@@ -35,6 +35,9 @@ export default {
       load:false
     }
   },
+  head:{
+    title:'Home'
+  },
   async fetch() {
     await axios.get('https://bymmc.com.ua/api/products')
       .then((result) => {
