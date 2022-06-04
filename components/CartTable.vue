@@ -85,7 +85,27 @@ export default {
             this.$store.dispatch('removeToCart', id)
         },
         removeProduct(id) {
-            this.$store.dispatch('removeProduct', id)
+            this.$swal.fire({
+                title: 'Are you sure?',
+                text: "the product will be removed!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    this.$swal.fire(
+                        {
+                            icon: 'success',
+                            title: 'Success',
+                            text: "product removed",
+                        }
+                    )
+                    this.$store.dispatch('removeProduct', id)
+
+                }
+            })
         }
     }
 

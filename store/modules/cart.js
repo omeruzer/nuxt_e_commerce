@@ -1,7 +1,7 @@
 import axios from 'axios'
 const state = {
     cart: [],
-    delivery:100
+    delivery: 100
 }
 const getters = {
     getCart(state) {
@@ -12,7 +12,7 @@ const getters = {
         var qty = 0
 
         state.cart.forEach(element => {
-            var totalCount = element.amount*element.item.packQty 
+            var totalCount = element.amount * element.item.packQty
             qty = qty + totalCount
         });
 
@@ -30,8 +30,8 @@ const getters = {
         return total;
     },
 
-    getCartTotal(state){
-        
+    getCartTotal(state) {
+
         var subtotal = 0;
 
         state.cart.forEach(element => {
@@ -39,7 +39,7 @@ const getters = {
             subtotal = subtotal + cartsubtotal
         });
 
-        var total = state.delivery+subtotal
+        var total = state.delivery + subtotal
 
         return total;
     }
@@ -59,7 +59,7 @@ const mutations = {
         const checkCart = state.cart.find(a => a.item.id === product.id)
         if (checkCart) {
             checkCart.amount--
-            if(checkCart.amount==0){
+            if (checkCart.amount == 0) {
                 checkCart.amount++
             }
         }
@@ -67,8 +67,12 @@ const mutations = {
     },
 
     removeProduct(state, product) {
-        console.log('delete');
-        // state.cart.splice(a => a.item == product, 1)
+        const id = product.id
+        const checkCart = state.cart.find(a => a.item.id === product.id)
+        const productIndex = state.cart.indexOf(checkCart)
+
+        state.cart.splice(productIndex, 1)
+
     },
 
     unloadToCart(state) {
