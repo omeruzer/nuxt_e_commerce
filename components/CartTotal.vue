@@ -2,10 +2,10 @@
     <div>
         <b-card-group deck class="">
             <b-card title="Checkout" header-tag="header" footer-tag="footer">
-                <b-card-text>Quantity: 5</b-card-text>
-                <b-card-text>Amount: 5 ₴ </b-card-text>
-                <b-card-text>Delivery Pay: 5 ₴</b-card-text>
-                <b-card-text>Total: <b>5 ₴</b> </b-card-text>
+                <b-card-text>Quantity: {{$store.getters.getCartItemsCount}}</b-card-text>
+                <b-card-text>Amount:  {{$store.getters.getCartSubtotal}} ₴ </b-card-text>
+                <b-card-text>Delivery Pay:{{$store.state.cart.delivery}} ₴</b-card-text>
+                <b-card-text>Total: <b>{{$store.getters.getCartTotal}} ₴</b> </b-card-text>
                 <b-button id="show-btn" class="btn btn-info" @click="$bvModal.show('bv-modal-example')">go to Pay
                 </b-button>
             </b-card>
@@ -76,7 +76,7 @@
                         </div>
                     </div>
                 </div>
-                <b-button class="btn btn-success mt-3" block @click="payment()">Pay <i class="fa fa-tags"></i> (50 ₴)
+                <b-button class="btn btn-success mt-3" block @click="payment()">Pay <i class="fa fa-tags"></i> ({{$store.getters.getCartTotal}} ₴)
                 </b-button>
             </b-modal>
         </b-card-group>

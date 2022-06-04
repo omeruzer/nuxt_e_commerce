@@ -86,7 +86,6 @@ export default {
         },
         removeProduct(id) {
             this.$store.dispatch('removeProduct', id)
-
         }
     }
 

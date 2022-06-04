@@ -1,10 +1,47 @@
 import axios from 'axios'
 const state = {
-    cart: []
+    cart: [],
+    delivery:100
 }
 const getters = {
     getCart(state) {
         return state.cart
+    },
+
+    getCartItemsCount(state) {
+        var qty = 0
+
+        state.cart.forEach(element => {
+            var totalCount = element.amount*element.item.packQty 
+            qty = qty + totalCount
+        });
+
+        return qty;
+    },
+
+    getCartSubtotal(state) {
+        var total = 0;
+
+        state.cart.forEach(element => {
+            var subTotal = element.amount * element.item.price * element.item.packQty
+            total = total + subTotal
+        });
+
+        return total;
+    },
+
+    getCartTotal(state){
+        
+        var subtotal = 0;
+
+        state.cart.forEach(element => {
+            var cartsubtotal = element.amount * element.item.price * element.item.packQty
+            subtotal = subtotal + cartsubtotal
+        });
+
+        var total = state.delivery+subtotal
+
+        return total;
     }
 }
 const mutations = {
@@ -22,12 +59,16 @@ const mutations = {
         const checkCart = state.cart.find(a => a.item.id === product.id)
         if (checkCart) {
             checkCart.amount--
+            if(checkCart.amount==0){
+                checkCart.amount++
+            }
         }
         console.log(state.cart);
     },
 
-    removeProduct(state,product){
-        state.cart.splice(product.id,1)
+    removeProduct(state, product) {
+        console.log('delete');
+        // state.cart.splice(a => a.item == product, 1)
     },
 
     unloadToCart(state) {
@@ -38,7 +79,7 @@ const mutations = {
 const actions = {
     addCart(context, id) {
         axios.get(`https://bymmc.com.ua/api/product/${id}`)
-            .then((result) => { 
+            .then((result) => {
                 context.commit('addCart', result.data[0])
             }).catch((err) => {
                 console.log(err);
@@ -52,13 +93,13 @@ const actions = {
                 console.log(err);
             });
     },
-    removeProduct(context, id){
+    removeProduct(context, id) {
         axios.get(`https://bymmc.com.ua/api/product/${id}`)
-        .then((result) => {
-            context.commit('removeProduct', result.data[0])
-        }).catch((err) => {
-            console.log(err);
-        });
+            .then((result) => {
+                context.commit('removeProduct', result.data[0])
+            }).catch((err) => {
+                console.log(err);
+            });
     }
 }
 
